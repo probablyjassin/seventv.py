@@ -51,12 +51,12 @@ _Sidenote: Keep in mind that to get the emote using the url, the file extension 
 
 ### Currently available search filters (optional):
 
-| filter                         | meaning | default value |     |
-| ---------------------------------------------- | -------- | --------------- | --- |
-| limit (int) | how many emotes are contained in the response      | 12             |     |
-| case_sensitive (bool)                         | whether or not upper-/lowercase letters are treated differently or will not be distinguished      | False             |     |
-| animated (bool)                                     |only return animated emotes in search results          | False                 |     |
-| ---more to be added soon---                                  |          |                 |     |                                               |          |                 |     |
+| filter                         | meaning | default value |     
+| ---------------------------------------------- | -------- | --------------- | 
+| limit (int) | how many emotes are contained in the response      | 12             |     
+| case_sensitive (bool)                         | whether or not upper-/lowercase letters are treated differently or will not be distinguished      | False             |     
+| animated (bool)                                     |only return animated emotes in search results          | False                 |     
+| ---more to be added soon---                                  |          |                 |     |                                               |          |                 |     
 
 
 soon to be added functionality: 
