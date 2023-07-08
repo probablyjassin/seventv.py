@@ -24,7 +24,7 @@ To search for an emote and make use of the search results, do the following (asy
 Example usage:
 ```
 import asyncio
-from sevenTV import sevenTV
+import sevenTV
 
 async def myFunctionSearchEmote():
     mySevenTVSession = sevenTV() # initialize the session
