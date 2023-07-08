@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='seventv',
-    version='1.2.2',
+    version='1.2.3',
     author='Jässin Aouani',
     author_email='jassin@aouani.de',
     description='An asynchronous API-wrapper for 7tv.app',

@@ -47,7 +47,13 @@ class seventv:
     async def close(self):
         await self.session.close()
 
-    async def emote_search(self, searchterm: str = "", limit: int = 12, case_sensitive: bool = False, animated: bool = False):
+    async def emote_search(self, 
+                           searchterm: str = "", 
+                           limit: int = 12, 
+                           case_sensitive: bool = False, 
+                           animated: bool = False,
+                           exact_match: bool = False
+                           ):
         url = self.endpoint
         headers = {
             "Content-Type": "application/json"
@@ -64,7 +70,7 @@ class seventv:
                 },
                 "filter": {
                     "category": "TOP",
-                    "exact_match": False,
+                    "exact_match": exact_match,
                     "case_sensitive": case_sensitive,
                     "ignore_tags": False,
                     "zero_width": False,

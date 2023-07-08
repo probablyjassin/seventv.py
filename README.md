@@ -5,6 +5,8 @@ This API-wrapper makes use of the 7tv API (v3) to make it possible to get emotes
 
 To get emotes by search query, the wrapper uses the GraphQL endpoint ```https://7tv.io/v3/gql``` because it seems to currently be the only working one for searching emotes. 
 
+<sub>this project is not associated with or owned by 7tv or it's owners<sub>
+
 # Installation
 ## How to install:
 ```
@@ -27,16 +29,22 @@ import asyncio
 import seventv
 
 async def myFunctionSearchEmote():
-    mySeventvSession = seventv() # initialize the session
+    mySevenTvSession = seventv.seventv() # initialize an instance of the seventv() class
     
-    emotes = await mySeventvSession.emote_search("pepe", case_sensitive=True)
+    emotes = await mySevenTvSession.emote_search("pepe", case_sensitive=True)
     # searches for "pepe", using the optional filter "case_sensitive"
     
     print(emotes[2]) # get the third emote from the search results
-    await mySeventvSession.close() # later close the session
+    await mySevenTvSession.close() # later close the session
 
 asyncio.run(getemote())
 ```
+_About closing sessions: initializing a session with seventv.sevent() creates an aiohttp session. This session should be closed by calling yourSession.close() at some point. Not doing so will cause a warning like this:_ 
+```
+Unclosed session
+client_session: <aiohttp.client.ClientSession object at 0x7fd2b06469b0>
+```
+_Closing/reopening it after every request does avoid the warning, but is not very efficent. It would be optimal to close the session when the service/code that uses it stops._
 
 Sample output: third Emote object in the search results:
 ```Emote(id: 60a304efac2bcb20ef20fa89, name: pepeMeltdown, owner_username: supernoahtv, host_url: //cdn.7tv.app/emote/60a304efac2bcb20ef20fa89)```
@@ -55,11 +63,10 @@ _Sidenote: Keep in mind that to get the emote using the url, the file extension 
 | filter                         | meaning | default value |     
 | ---------------------------------------------- | -------- | --------------- | 
 | limit (int) | how many emotes are contained in the response      | 12             |     
-| case_sensitive (bool)                         | whether or not upper-/lowercase letters are treated differently or will not be distinguished      | False             |     
-| animated (bool)                                     |only return animated emotes in search results          | False                 |     
-| ---more to be added soon---                                  |          |                 |     |                                               |          |                 |     
+| case_sensitive (bool) | whether or not upper-/lowercase letters are treated differently or will not be distinguished   | False |     
+| animated (bool) |only return animated emotes in search results          | False                 |     
+| exact_match (bool) | only return emotes that exactly match the search query | False   |     |                                               |          |                 |     
 
 
 soon to be added functionality: 
-- more search filters
-- getting an emote by it's id
+- get an emote by it's id
