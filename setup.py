@@ -6,6 +6,7 @@ setup(
     author='Jässin Aouani',
     author_email='jassin@aouani.de',
     description='An asynchronous API-wrapper for 7tv.app',
+    long_description='seventv: an asynchronous Python API-wrapper for 7tv.app. This API-wrapper makes use of the 7tv API (v3) to make it possible to get emotes, details about them, and soon some more things the API supports. To get emotes by search query, the wrapper uses the GraphQL endpoint https://7tv.io/v3/gql because it seems to currently be the only working one for searching emotes.',
     packages=['seventv'],
     install_requires=['aiohttp'],
     classifiers=[
