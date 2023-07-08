@@ -24,16 +24,16 @@ To search for an emote and make use of the search results, do the following (asy
 Example usage:
 ```
 import asyncio
-import sevenTV
+import seventv
 
 async def myFunctionSearchEmote():
-    mySevenTVSession = sevenTV() # initialize the session
+    mySeventvSession = seventv() # initialize the session
     
-    emotes = await mySevenTVSession.emote_search("pepe", case_sensitive=True)
+    emotes = await mySeventvSession.emote_search("pepe", case_sensitive=True)
     # searches for "pepe", using the optional filter "case_sensitive"
     
     print(emotes[2]) # get the third emote from the search results
-    await mySevenTVSession.close() # later close the session
+    await mySeventvSession.close() # later close the session
 
 asyncio.run(getemote())
 ```
