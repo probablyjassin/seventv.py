@@ -24,8 +24,10 @@ class Emote:
         }
 
 def create_emote_objects(response: dict) -> list[Emote]:
-    emotes_data = response['data']['emotes']
-    emote_items = emotes_data['items']
+    if (response.get('errors', {}))
+        return response.get('errors', {})[0].get('message', {})
+    emotes_data = response.get('data', {}).get('emotes')
+    emote_items = emotes_data.get('items')
 
     emote_objects = []
 
