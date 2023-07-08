@@ -5,17 +5,13 @@ This API-wrapper makes use of the 7tv API (v3) to make it possible to get emotes
 To get emotes by search query, the wrapper uses the GraphQL endpoint ```https://7tv.io/v3/gql``` because it seems to currently be the only working one for searching emotes. 
 
 # Installation
-## requirement(s):
-```
-aiohttp
-json
-```
-```
-pip install git+https://github.com/probablyjassin/sevenTVpy
-```
-or
+## How to install:
 ```
 pip install seventv
+```
+### requires:
+```
+aiohttp
 ```
 
 # Usage
@@ -23,7 +19,7 @@ To search for an emote and make use of the search results, do the following (asy
 - create a class instance of sevenTV
 - await the ```.emote_search``` method with your search query string and optional filters
 - don't forget to close the session at some later point, using ```.close()```.
-- 
+
 Example usage:
 ```
 import asyncio
@@ -51,7 +47,7 @@ Each emote contains the following properties:
 - owner_username
 - host_url
 
-_Sidenote: To access the emote using the url, the file extension must be appended to the host_url. Emotes are stored on 7tv in different sizes, usually ranging from 1x.webp to 4x.webp. Not every emote might have every size though, so look it up or go with x2 or x3 which the majority of emotes have._
+_Sidenote: Keep in mind that to get the emote using the url, the file extension must be appended to the host_url. Emotes are stored on 7tv in different sizes, usually ranging from 1x.webp to 4x.webp. Not every emote might have every size though, so look it up or go with x2 or x3 which the majority of emotes have._
 
 ### Currently available search filters (optional):
 
