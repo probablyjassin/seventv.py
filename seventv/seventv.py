@@ -1,7 +1,5 @@
 from __future__ import annotations
-
 import aiohttp
-import json
 
 class Emote:
     def __init__(self, id, name, owner_username, host_url):
@@ -49,10 +47,7 @@ class seventv:
     async def close(self):
         await self.session.close()
 
-    def to_json(self):
-        return json.dumps(self.__dict__, indent=4)
-
-    async def emote_search(self, searchterm, **kwargs):
+    async def emote_search(self, searchterm: str = "", limit: int = 12, case_sensitive: bool = False, animated: bool = False):
         url = self.endpoint
         headers = {
             "Content-Type": "application/json"
@@ -61,7 +56,7 @@ class seventv:
             "operationName": "SearchEmotes",
             "variables": {
                 "query": searchterm,
-                "limit": kwargs.get("limit", 12),
+                "limit": limit,
                 "page": 1,
                 "sort": {
                     "value": "popularity",
@@ -70,10 +65,10 @@ class seventv:
                 "filter": {
                     "category": "TOP",
                     "exact_match": False,
-                    "case_sensitive": kwargs.get("case_sensitive", False),
+                    "case_sensitive": case_sensitive,
                     "ignore_tags": False,
                     "zero_width": False,
-                    "animated": kwargs.get("animated", False),
+                    "animated": animated,
                     "aspect_ratio": ""
                 }
             },
