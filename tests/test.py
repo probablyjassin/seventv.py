@@ -3,8 +3,8 @@ import asyncio
 
 async def get():
     em=seventv()
-    resp = await em.emote_search("")
+    resp = await em.emote_search(animated=True, case_sensitive=True)
     print(resp)
-    em.close()
+    await em.close()
 
 asyncio.run(get())
