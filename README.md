@@ -5,7 +5,7 @@ This API-wrapper makes use of the 7tv API (v3) to make it possible to get emotes
 
 To get emotes by search query, the wrapper uses the GraphQL endpoint ```https://7tv.io/v3/gql``` because it seems to currently be the only working one for searching emotes. 
 
-<sub>this project is not associated with or owned by 7tv or it's owners<sub>
+<sub>this project is not associated with or owned by 7tv or it's developers<sub>
 
 # Installation
 ## How to install:
@@ -29,8 +29,9 @@ import asyncio
 import seventv
 
 async def myFunctionSearchEmote():
-    mySevenTvSession = seventv.seventv() # initialize an instance of the seventv() class
-    
+    mySevenTvSession = seventv.seventv()
+    # initialize an instance of the seventv() class. this must happen in an asynchronous context
+
     emotes = await mySevenTvSession.emote_search("pepe", case_sensitive=True)
     # searches for "pepe", using the optional filter "case_sensitive"
     
@@ -63,6 +64,7 @@ _Sidenote: Keep in mind that to get the emote using the url, the file extension 
 | filter                         | meaning | default value |     
 | ---------------------------------------------- | -------- | --------------- | 
 | limit (int) | how many emotes are contained in the response      | 12             |     
+| page (int) | which page from the search results to return      | 1             | 
 | case_sensitive (bool) | whether or not upper-/lowercase letters are treated differently or will not be distinguished   | False |     
 | animated (bool) |only return animated emotes in search results          | False                 |     
 | exact_match (bool) | only return emotes that exactly match the search query | False   |     |                                               |          |                 |     

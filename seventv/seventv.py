@@ -49,7 +49,8 @@ class seventv:
 
     async def emote_search(self, 
                            searchterm: str = "", 
-                           limit: int = 12, 
+                           limit: int = 12,
+                           page: int = 1,
                            case_sensitive: bool = False, 
                            animated: bool = False,
                            exact_match: bool = False
@@ -63,7 +64,7 @@ class seventv:
             "variables": {
                 "query": searchterm,
                 "limit": limit,
-                "page": 1,
+                "page": page,
                 "sort": {
                     "value": "popularity",
                     "order": "DESCENDING"
