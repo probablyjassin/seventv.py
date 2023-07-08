@@ -1,3 +1,4 @@
+# seventv
 an asynchronous Python API-wrapper for [7tv.app](https://7tv.app)
 
 This API-wrapper makes use of the 7tv API (v3) to make it possible to get emotes, details about them, and soon some more things the API supports.
