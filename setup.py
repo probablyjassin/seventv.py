@@ -6,7 +6,7 @@ setup(
     author='Jässin Aouani',
     author_email='jassin@aouani.de',
     description='An asynchronous API-wrapper for 7tv.app',
-    long_description='',
+    long_description = "Placeholder",
     packages=['seventv'],
     install_requires=['aiohttp'],
     classifiers=[
