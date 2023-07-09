@@ -1,8 +1,10 @@
 from __future__ import annotations
 import aiohttp
+from typing import Literal
+from version import __version__
 
 class Emote:
-    def __init__(self, id, name, owner_username, host_url):
+    def __init__(self, id = None, name = None, owner_username = None, host_url = None):
         self.id = id
         self.name = name
         self.owner_username = owner_username
@@ -26,23 +28,26 @@ class Emote:
 def create_emote_objects(response: dict) -> list[Emote]:
     if (response.get('errors', {})):
         raise Exception(response.get('errors', {})[0].get('message', {}))
-    emotes_data = response.get('data', {}).get('emotes')
-    emote_items = emotes_data.get('items')
-
+    
     emote_objects = []
+    emotes_data = response.get('data', {}).get('emotes')
+    emote_items = emotes_data.get('items', [])
 
     for emote in emote_items:
-        emote_id = emote['id']
-        emote_name = emote['name']
-        owner = emote['owner']
-        owner_username = owner['username']
-        host = emote['host']
-        host_url = host['url']
+        emote_id = emote.get('id')
+        emote_name = emote.get('name')
+        owner = emote.get('owner', {})
+        owner_username = owner.get('username')
+        host = emote.get('host', {})
+        host_url = host.get('url')
+
         emote_objects.append(Emote(emote_id, emote_name, owner_username, host_url))
+
     return emote_objects
 
 class seventv:
     def __init__(self):
+        self.version = __version__
         self.endpoint = "https://7tv.io/v3/gql"
         self.session = aiohttp.ClientSession()
 
@@ -55,9 +60,14 @@ class seventv:
                            page: int = 1,
                            case_sensitive: bool = False, 
                            animated: bool = False,
-                           exact_match: bool = False
+                           exact_match: bool = False, 
+                           query: Literal["all", "url"] = "all",
                            ):
         url = self.endpoint
+        queries = {
+        "all": 'query SearchEmotes($query: String!, $page: Int, $sort: Sort, $limit: Int, $filter: EmoteSearchFilter) {\n emotes(query: $query, page: $page, sort: $sort, limit: $limit, filter: $filter) {\nitems{\n id\n name\n owner{\n username\n }\n host{\n url}}\n}\n}',
+        "url": 'query SearchEmotes($query: String!, $page: Int, $sort: Sort, $limit: Int, $filter: EmoteSearchFilter) {\n emotes(query: $query, page: $page, sort: $sort, limit: $limit, filter: $filter) {\nitems{host{\n url}}\n}\n}'
+        }
         headers = {
             "Content-Type": "application/json"
         }
@@ -81,13 +91,11 @@ class seventv:
                     "aspect_ratio": ""
                 }
             },
-            "query": "query SearchEmotes($query: String!, $page: Int, $sort: Sort, $limit: Int, $filter: EmoteSearchFilter) {\n  emotes(query: $query, page: $page, sort: $sort, limit: $limit, filter: $filter) {\n    count\n    items {\n      id\n      name\n      state\n      trending\n      owner {\n        id\n        username\n        display_name\n        style {\n          color\n          paint_id\n          __typename\n        }\n        __typename\n      }\n      flags\n      host {\n        url\n        files {\n          name\n          format\n          width\n          height\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}"
+            "query": f"{queries.get(query)}"
         }
-
         async with self.session.post(url, json=payload, headers=headers) as response:
             if response.status != 200:
-                raise Exception("HTTP request failed")
+                raise Exception(response.get('errors', {})[0].get('message', {}))
             response_data = await response.json()
             emote_objects = create_emote_objects(response_data)
             return emote_objects
-
