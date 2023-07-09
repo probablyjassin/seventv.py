@@ -6,7 +6,7 @@
 
 from .seventv import Emote, create_emote_objects, seventv
 
-__version__ = "2.3.1"
+__version__ = "2.2.1"
 
 __all__ = [
     'Emote',
