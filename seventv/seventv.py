@@ -1,7 +1,6 @@
 from __future__ import annotations
 import aiohttp
 from typing import Literal
-from version import __version__
 
 class Emote:
     def __init__(self, id = None, name = None, owner_username = None, host_url = None):
@@ -47,7 +46,6 @@ def create_emote_objects(response: dict) -> list[Emote]:
 
 class seventv:
     def __init__(self):
-        self.version = __version__
         self.endpoint = "https://7tv.io/v3/gql"
         self.session = aiohttp.ClientSession()
 

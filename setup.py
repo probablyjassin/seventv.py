@@ -1,9 +1,8 @@
 from setuptools import setup
-from seventv.version import __version__
 
 setup(
     name='seventv',
-    version=__version__,
+    version="2.2.0",
     author='Jässin Aouani',
     author_email='jassin@aouani.de',
     description='An asynchronous API-wrapper for 7tv.app',
