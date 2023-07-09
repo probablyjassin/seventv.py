@@ -15,6 +15,7 @@ setup(
     """,
     packages=['seventv'],
     install_requires=['aiohttp'],
+    url="https://github.com/probablyjassin/seventv.py",
     license='GPL',
     classifiers=[
         'Programming Language :: Python :: 3',
