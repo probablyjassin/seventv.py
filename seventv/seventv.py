@@ -1,5 +1,5 @@
 from __future__ import annotations
-import aiohttp
+import aiohttp, json
 from typing import Literal
 
 class Emote:
@@ -45,6 +45,7 @@ def create_emote_objects(response: dict) -> list[Emote]:
     return emote_objects
 
 class seventv:
+    """The seventv instance that contains an aiohttp session and the methods for interacting with the API"""
     def __init__(self):
         self.endpoint = "https://7tv.io/v3/gql"
         self.session = aiohttp.ClientSession()
@@ -61,6 +62,7 @@ class seventv:
                            exact_match: bool = False, 
                            query: Literal["all", "url"] = "all",
                            ):
+        """Search for emotes using a text string (searchterm)"""
         url = self.endpoint
         queries = {
         "all": 'query SearchEmotes($query: String!, $page: Int, $sort: Sort, $limit: Int, $filter: EmoteSearchFilter) {\n emotes(query: $query, page: $page, sort: $sort, limit: $limit, filter: $filter) {\nitems{\n id\n name\n owner{\n username\n }\n host{\n url}}\n}\n}',
@@ -72,7 +74,7 @@ class seventv:
         payload = {
             "operationName": "SearchEmotes",
             "variables": {
-                "query": searchterm,
+                "query": json.dumps(searchterm),
                 "limit": limit,
                 "page": page,
                 "sort": {
