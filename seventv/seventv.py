@@ -96,6 +96,9 @@ class seventv:
         async with self.session.post(url, json=payload, headers=headers) as response:
             response_data = await response.json()
             if response_data.get('errors', {}):
-                raise Exception(response_data.get('errors', {})[0].get('message', {}))
+                raise seventvException(response_data.get('errors', {})[0].get('message', {}))
             emote_objects = create_emote_objects(response_data)
             return emote_objects
+
+class seventvException(Exception):
+        pass
