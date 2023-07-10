@@ -6,10 +6,11 @@
 
 from .seventv import Emote, create_emote_objects, seventv
 
-__version__ = "2.3.3"
+__version__ = "2.4.0"
 
 __all__ = [
     'Emote',
     'create_emote_objects',
     'seventv',
+    'seventvException',
 ]

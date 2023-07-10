@@ -1,6 +1,7 @@
 from __future__ import annotations
 import aiohttp
 from typing import Literal
+import re
 
 class Emote:
     def __init__(self, id = None, name = None, owner_username = None, host_url = None):
@@ -96,6 +97,11 @@ class seventv:
         async with self.session.post(url, json=payload, headers=headers) as response:
             response_data = await response.json()
             if response_data.get('errors', {}):
-                raise Exception(response_data.get('errors', {})[0].get('message', {}))
+                raise seventvException(re.sub(r'\d+', '', response_data.get('errors', {})[0].get('message', {})))
             emote_objects = create_emote_objects(response_data)
             return emote_objects
+
+class seventvException(Exception):
+    def __init__(self, message):
+        self.message = message
+        super().__init__(f"That didn't work!\n{message}")
