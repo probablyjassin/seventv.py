@@ -37,7 +37,7 @@ def create_emote_objects(response: dict) -> list[Emote]:
         emote_id = emote.get('id')
         emote_name = emote.get('name')
         owner = emote.get('owner', {})
-        owner_username = owner.get('username')
+        owner_username = owner.get('username') if owner else None
         host = emote.get('host', {})
         host_url = host.get('url')
 
